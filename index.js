@@ -12,10 +12,8 @@ var options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    //一號
-    //'Authorization': 'Bearer FxkFy3W6dgqm2loOZly4vmChpfbQRa2ZZvtn7qrC8EfIV0xZWCGqA2DL6yTOJ3DH/qwU+738SSR3x+V+NtERsSJnkjb2RBAtA0VUCKa3WxnerpcO9hl91Zqqz5dCazB0pLFBfLWbNZ6rVwfBGAG66gdB04t89/1O/w1cDnyilFU='
-    //二號
-    'Authorization': 'Bearer iX0hzYSVtLGdDkAuRPmGhCkr08f4+66tYu01HQTLq0pYMcBlbILoJwpxrn4Up9vPI7V9WrpwTKWKQ0ZUtGeUTFXXrIpshKQZEC+6RX6iWGIAJ68c5u8nHO2v4juke2q8oLVqU5uV4WotQER9uMZHmAdB04t89/1O/w1cDnyilFU='
+    //在這邊輸入Line的Channel Access Token
+    'Authorization': 'Bearer [LineAuthorization]'
   }
 }
 app.set('port', (process.env.PORT || 5000));
@@ -100,14 +98,13 @@ function replyMsgToLine(rplyToken, rplyVal) {
 
 
 
-以下
-
+以下寫計算骰子什麼鬼的
 
 
 
 
 */
-//檢查輸入資料什麼的吧，要動應該就是主要是動這邊了，我要用死大學生寫法全都塞在一個function裡面
+//輸入字串什麼的，我要用死大學生寫法全都塞在一個function裡面
 function cInput(rplyToken, inStr) {
   console.log('cInput開始');
   //inStr就是輸入的字串，反正只要處理這一串就對了
@@ -115,7 +112,6 @@ function cInput(rplyToken, inStr) {
   //字串先處理基本的
   //總之要先檢查字串內容包含加號、d、或開頭為cc之類...該怎麼做呢？
   //總之先把字串搬出來全小寫
-  let final_ans='仍在測試中';
   
   let dice_l=inStr.toLowerCase().split(' ',1)[0];
   let dice_c=inStr.toLowerCase().split(' ',1)[0];
