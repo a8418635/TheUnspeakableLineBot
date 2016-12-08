@@ -127,7 +127,7 @@ function cInput(rplyToken, inStr) {
 	help_text= help_text+"＝＝＝＝＝＝＝＝＝\n";
 	help_text= help_text+"未來預定更新，新增運勢，以及DX、NC的骰組。\n";
 	help_text= help_text+"\n";
-	help_text= help_text+"此丟骰機器人由悠子根據RocTeseng的好友LarryLo提供的開源製作。\n";
+	help_text= help_text+"此丟骰機器人由悠子根據LarryLo提供的開源製作。\n";
 	help_text= help_text+"特別通訊協定：李孟儒\n";
 	return help_text;
 	//help_text= help_text+"輸入文字\n";
@@ -236,6 +236,11 @@ function cInput(rplyToken, inStr) {
 	  if (dice_100_a >=96 && inStr.split(' ',1)[0].split('<=',2)[1]<50) {
 	    //96以上的失敗，根據難度可能大失敗
 		ans = ans + ' → 大失敗，すばらしく運がないな、君は。';
+	    return ans;
+	  }
+	  else if (dice_100_a >=96 && inStr.split(' ',1)[0].split('<=',2)[1]<100) {
+	    //96以上的失敗，根據難度可能大失敗
+		ans = ans + ' → 失敗（若要求困難或極限成功為大失敗）';
 	    return ans;
 	  }
 	  ans = ans + ' → 失敗';
