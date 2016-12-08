@@ -1,7 +1,7 @@
 {
-  "name": "leoli",
-  "version": "0.2.0",
-  "description": "LeoLi Line Bot",
+  "name": "yuuko",
+  "version": "0.1.0",
+  "description": "The Unspeakable Dice Roller",
   "engines": {
     "node": "6.9.1"
   },
@@ -14,7 +14,7 @@
     "body-parser": "1.15.2"
   },
   "keywords": [
-    "LeoLi",
+    "Dice Roller",
     "Line"
   ],
   "license": "MIT"
