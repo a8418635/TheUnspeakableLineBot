@@ -170,7 +170,7 @@ function cInput(rplyToken, inStr) {
 	  
 	if (inStr.split(' ',1)[0].split('<=',2)[0].match(/[12]/) != null) {
 	  ans=ans+'初始結果 → '+dice_100_a[0];
-	  ans=ans+"\n<br>";
+	  ans=ans+"\n";
 	  ans=ans+"→ 十位數加骰為"+dice_bp[1];
 	  if (inStr.split(' ',1)[0].split('<=',2)[0].match(/[2]/) != null) ans=ans+"、"+dice_bp[2];
 	}
