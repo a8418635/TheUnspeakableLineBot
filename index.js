@@ -114,33 +114,47 @@ function cInput(rplyToken, inStr) {
   if (inStr.toLowerCase().match(/^hastur\s?說明$/)!=null) {
     help_text= help_text+"無以名狀的擲骰者 版本v1.0\n";
 	help_text= help_text+"\n";
-	help_text= help_text+"擲骰請直接輸入xdy，代表x顆y面骰，支援四則運算\n";
-	help_text= help_text+"骰組指令說明，請輸入「Hastur 系統名稱」，系統名稱請見下列\n";
+	help_text= help_text+"＜擲骰請直接輸入xdy＞\n";
+	help_text= help_text+"代表x顆y面骰，支援四則運算與括號。\n";
+	help_text= help_text+"＝＝＝＝＝＝＝＝＝\n";
+	help_text= help_text+"骰組指令說明，請輸入\n";
+	help_text= help_text+"「Hastur 系統名稱」\n";
+	help_text= help_text+"系統名稱請見下列\n";
+	help_text= help_text+"＝＝＝＝＝＝＝＝＝\n";
 	help_text= help_text+"目前支援系統：CoC 7th\n";
 	help_text= help_text+"\n";
 	help_text= help_text+"\n";
+	help_text= help_text+"＝＝＝＝＝＝＝＝＝\n";
 	help_text= help_text+"未來預定更新，新增運勢，以及DX、NC的骰組。\n";
 	help_text= help_text+"\n";
-	help_text= help_text+"此丟骰機器人由悠子及Roc Teseng的好友製作，特別感謝：李孟儒\n";
-	//help_text= help_text+"輸入文字\n";
+	help_text= help_text+"此丟骰機器人由悠子根據RocTeseng的好友LarryLo提供的開源製作。\n";
+	help_text= help_text+"特別通訊協定：李孟儒\n";
 	return help_text;
+	//help_text= help_text+"輸入文字\n";
   }
   if (inStr.toLowerCase().match(/^hastur\s?coc\s?7th$/)!=null) {
-    help_text= help_text+"CoC 7th骰組說明：\n";
-	help_text= help_text+"輸入文字\n";
-	help_text= help_text+"請直接輸入cc<=檢定數字\n";
-	help_text= help_text+"cc()內可輸入獎勵與懲罰骰，例：cc(2)為2獎勵骰，cc(-1)為1懲罰骰。\n";
-	help_text= help_text+"輸入文字\n";
-	help_text= help_text+"輸入cc>將直接計算技能成長骰，連1d10都幫你骰好，詳細規則請參閱規則書。\n";
+    help_text= help_text+"＝＝CoC 7th骰組說明＝＝\n";
+	help_text= help_text+"\n";
+	help_text= help_text+"「cc(x)<=技能值」為一般檢定，\n";
+	help_text= help_text+"x可為-2~2，為獎勵與懲罰骰，例：\n";
+	help_text= help_text+"cc(2)<=50，cc(-1)<=75。\n";
+	help_text= help_text+"\n";
+	help_text= help_text+"「cc>技能值」為技能成長檢定，\n";
+	help_text= help_text+"輸入cc>將直接計算技能成長骰，\n";
+	help_text= help_text+"若成功，連1d10都幫你骰好，\n";
+	help_text= help_text+"關於技能成長規則，請參閱規則書。\n";
 	help_text= help_text+"忘記說，成長骰還在做。\n";
 	help_text= help_text+"\n";
-	help_text= help_text+"對了，此丟骰機器人現在沒有，以後也不會支援CoC 6th，喵哈哈。\n";
+	help_text= help_text+"＝＝＝＝＝＝＝＝＝\n";
+	help_text= help_text+"對了，此丟骰機器人現在沒有，\n";
+	help_text= help_text+"以後也不會支援CoC 6th，喵哈哈。\n";
     return help_text;
     //help_text= help_text+"輸入文字\n";
   }
   
+  
   //以下為CoC 7th投骰（基本cc檢定包含獎勵骰，FAR那個全自動槍械骰請容我現在先放棄)
-  if (inStr.toLowerCase().match(/^cc(\(-?[12]\))?<=\d{1,}/)!=null){
+  if (inStr.toLowerCase().match(/^cc(\(-?[12]\))?<=\d{1,}/)!=null && inStr.toLowerCase().split(' ',1)[0].split('<=',2)[1] !=0 && inStr.toLowerCase().split(' ',1)[0].split('<=',2)[1].match(/\./)==null){
     let dice_100_a =[]; //丟骰最終值
 	let dice_1_a = Math.floor((Math.random()*10)); //丟骰個位數
 	let dice_bp=[];  //紀錄十位數的獎懲骰
@@ -241,6 +255,11 @@ function cInput(rplyToken, inStr) {
 	let dice_temp='';
     let dice_all =[];
     let dice_sum =[];
+	let msg_long=false;
+	if (inStr.split(' ',1)[0] > 20) return ("複數丟骰上限為20次，請不要洗頻會被天譴哦（<ゝω・）");
+	if (inStr.split(' ',2)[1].match(/d1\D?/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+  　if (inStr.split(' ',2)[1].match(/d0/)!=null) return undefined;
+	
 	for(let count_roll=1;count_roll<=inStr.split(' ',1)[0];count_roll++){
 	  let dice_l=inStr.toLowerCase().split(' ',2)[1];
       let dice_c=inStr.toLowerCase().split(' ',2)[1];
@@ -250,50 +269,77 @@ function cInput(rplyToken, inStr) {
 	    dice_all[count-1] = '['+dice_temp+']';
 	
    	    dice_sum[count-1]=0;
-	      for(let count2 = 1 ;count2<=dice_temp.length; count2++){
-            dice_sum[count-1] = dice_temp[count2-1]+dice_sum[count-1];
-  	      }
+		//如果單組骰子大於20顆則視為太長
+	    if (dice_temp.length>=20) msg_long=true;
+	    for(let count2 = 1 ;count2<=dice_temp.length; count2++){
+		  //如果骰子結果大於100則視為太長
+	      if (dice_temp[count2-1]>100) msg_long=true;
+          dice_sum[count-1] = dice_temp[count2-1]+dice_sum[count-1];
+  	    }
 	    dice_c=dice_c.replace((/\d{1,}d\d{1,}/),dice_sum[count-1]);
 	    dice_l=dice_l.replace((/\d{1,}d\d{1,}/),dice_sum[count-1]+dice_all[count-1]);
 	  }
-	  dice_mult = dice_mult+('第'+count_roll+'次投骰： '+dice_l+' = '+eval(dice_c)+'\n')
+	  if (msg_long==true){
+	    dice_mult = dice_mult+('第'+count_roll+'次投骰：= '+eval(dice_c)+'\n')
+	  }
+	  else{
+	    dice_mult = dice_mult+('第'+count_roll+'次投骰： '+dice_l+' = '+eval(dice_c)+'\n')
+	  }
 	  
     }
-	return ('基本骰組（複數投骰）：\n'+'\n'+dice_mult);
+	if (msg_long==true){
+	  return ('基本骰組（複數投骰，骰數過長僅顯示結果）：\n'+'\n'+dice_mult);
+	}
+	else{
+	  return ('基本骰組（複數投骰）：\n'+'\n'+dice_mult);
+	}
   }
   
   //以下這個if是單次基本投骰
-  if (inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g) != null && inStr.split(' ',1)[0].match(/\./)==null){
-    let dice_l=inStr.toLowerCase().split(' ',1)[0];
-    let dice_c=inStr.toLowerCase().split(' ',1)[0];
+  if (inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g) != null && inStr.split(' ',1)[0].match(/\.|\^|#/)==null){
+    let dice_l=inStr.toLowerCase().split(' ',1)[0]; //顯示用的骰子結果
+    let dice_c=inStr.toLowerCase().split(' ',1)[0]; //整串計算用的骰子結果
   
-    let dice_temp='';
-    let dice_all =[];
-    let dice_sum =[];
+    if (inStr.split(' ',1)[0].match(/d1\D?/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+  　if (inStr.split(' ',1)[0].match(/d0/)!=null) return undefined;
+  
+    let dice_temp='';　//對啦對啦我知道用temp當變數很沒良心但是請不要提醒我QQ
+    let dice_all =[]; //每組骰子的內容(像2d6這樣叫做一組)
+    let dice_sum =[]; //每組骰子的總和(像2d6骰出2~12這叫做總合)
+	let msg_long=false;
     for(let count=1; count<=inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g).length;count++){
 	  dice_temp=basic_dice(inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g)[count-1]);
 	  dice_all[count-1] = '['+dice_temp+']';
 	
    	  dice_sum[count-1]=0;
-	    for(let count2 = 1 ;count2<=dice_temp.length; count2++){
-          dice_sum[count-1] = dice_temp[count2-1]+dice_sum[count-1];
-  	    }
+	  //如果單組骰子大於20顆則視為太長
+	  if (dice_temp.length>=20) msg_long=true;
+	  for(let count2 = 1 ;count2<=dice_temp.length; count2++){
+	    //如果骰子結果大於100則視為太長
+	    if (dice_temp[count2-1]>100) msg_long=true;
+        dice_sum[count-1] = dice_temp[count2-1]+dice_sum[count-1];
+  	  }
 	  dice_c=dice_c.replace((/\d{1,}d\d{1,}/),dice_sum[count-1]);
 	  dice_l=dice_l.replace((/\d{1,}d\d{1,}/),dice_sum[count-1]+dice_all[count-1]);
 	
     }
-    return ('基本骰組：'+dice_l+' = '+eval(dice_c));
+	//判斷回應訊息是不是太長
+	if (msg_long==true) {
+	  return ('基本骰組：'+eval(dice_c)+'（骰數過多或過面數大，僅顯示結果）');
+	}
+	else {
+      return ('基本骰組：'+dice_l+' = '+eval(dice_c));
+    } 
   }
   
-  //計算骰子結束
+  return undefined;
 }
 
   //基本骰子的function(xdy這種，每顆骰子都獨立結果回傳陣列)
-  function basic_dice(bdice){
+function basic_dice(bdice){
     let dice_group = [];
     for(let count = 1 ; count<=bdice.split("d",2)[0] ; count++){
 	    dice_group[count-1] = Math.floor((Math.random()*bdice.split("d",2)[1])+1);
 	  }
     return dice_group;
-  }
-  
+}
