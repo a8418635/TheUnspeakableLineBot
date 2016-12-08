@@ -122,7 +122,6 @@ function cInput(rplyToken, inStr) {
 	help_text= help_text+"未來預定更新，新增運勢，以及DX、NC的骰組。\n";
 	help_text= help_text+"\n";
 	help_text= help_text+"此丟骰機器人由悠子及Roc Teseng的好友製作，特別感謝：李孟儒\n";
-	help_text= "";
 	//help_text= help_text+"輸入文字\n";
 	return help_text;
   }
