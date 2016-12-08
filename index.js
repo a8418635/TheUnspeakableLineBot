@@ -12,6 +12,7 @@ var options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
+    //輸入那個什麼，Channel Access Token
     'Authorization': 'Bearer [LineAuthorization]'
   }
 }
