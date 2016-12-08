@@ -257,7 +257,7 @@ function cInput(rplyToken, inStr) {
     let dice_sum =[];
 	let msg_long=false;
 	if (inStr.split(' ',1)[0] > 20) return ("複數丟骰上限為20次，請不要洗頻會被天譴哦（<ゝω・）");
-	if (inStr.split(' ',2)[1].match(/d1\D?/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+   if (inStr.split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
   　if (inStr.split(' ',2)[1].match(/d0/)!=null) return undefined;
 	
 	for(let count_roll=1;count_roll<=inStr.split(' ',1)[0];count_roll++){
@@ -300,7 +300,7 @@ function cInput(rplyToken, inStr) {
     let dice_l=inStr.toLowerCase().split(' ',1)[0]; //顯示用的骰子結果
     let dice_c=inStr.toLowerCase().split(' ',1)[0]; //整串計算用的骰子結果
   
-    if (inStr.split(' ',1)[0].match(/d1\D?/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+    if (inStr.split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
   　if (inStr.split(' ',1)[0].match(/d0/)!=null) return undefined;
   
     let dice_temp='';　//對啦對啦我知道用temp當變數很沒良心但是請不要提醒我QQ
