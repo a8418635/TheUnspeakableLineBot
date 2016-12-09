@@ -118,8 +118,8 @@ function cInput(rplyToken, inStr) {
   else if (inStr.toLowerCase().match(/^cc/)!=null){
     return coc7th(inStr);
   }
-  //如果開頭第一個字元為數字就可能是基本骰組
-  else if (inStr.toLowerCase().match(/^\d/)!=null) {
+  //如果輸入字串有小寫d就可能是d66啦基本骰組之類
+  else if (inStr.toLowerCase().match(/d/)!=null) {
     return dice_roller(inStr);
   }
   else {
@@ -211,7 +211,8 @@ function coc7th(inStr){
 	
 	//暫時輸入骰數
 	//dice_100_a=96;
-
+	
+    //以下判定丟骰結果，比對輸入的檢定數字
 	if (dice_100_a == 1){
 	  //大成功
 	  ans = ans + ' → ＼大★成★功／';
@@ -275,6 +276,8 @@ function coc7th(inStr){
   }
 
 }
+
+//基本骰組的狀況，複數投骰和單次投骰
 function dice_roller(inStr){
   //以下這個if是複數投骰
   if (inStr.toLowerCase().match(/\d{1,}d\d{1,}/g) != null && inStr.split(' ',1)[0].match(/\D/)==null && inStr.split(' ',2)[1].match(/\./)==null){
@@ -284,8 +287,8 @@ function dice_roller(inStr){
     let dice_sum =[];
 	let msg_long=false;
 	if (inStr.split(' ',1)[0] > 20) return ("複數丟骰上限為20次，請不要洗頻會被天譴哦（<ゝω・）");
-   if (inStr.split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
-  　if (inStr.split(' ',2)[1].match(/d0/)!=null) return undefined;
+   if (inStr.toLowerCase().split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+  　if (inStr.toLowerCase().split(' ',2)[1].match(/d0/)!=null) return undefined;
 	
 	for(let count_roll=1;count_roll<=inStr.split(' ',1)[0];count_roll++){
 	  let dice_l=inStr.toLowerCase().split(' ',2)[1];
@@ -327,8 +330,8 @@ function dice_roller(inStr){
     let dice_l=inStr.toLowerCase().split(' ',1)[0]; //顯示用的骰子結果
     let dice_c=inStr.toLowerCase().split(' ',1)[0]; //整串計算用的骰子結果
   
-    if (inStr.split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
-  　if (inStr.split(' ',1)[0].match(/d0/)!=null) return undefined;
+    if (inStr.toLowerCase().split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+  　if (inStr.toLowerCase().split(' ',1)[0].match(/d0/)!=null) return undefined;
   
     let dice_temp='';　//對啦對啦我知道用temp當變數很沒良心但是請不要提醒我QQ
     let dice_all =[]; //每組骰子的內容(像2d6這樣叫做一組)
