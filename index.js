@@ -107,11 +107,30 @@ function replyMsgToLine(rplyToken, rplyVal) {
 */
 //檢查輸入資料什麼的吧，要動應該就是主要是動這邊了，我要用死大學生寫法全都塞在一個function裡面
 function cInput(rplyToken, inStr) {
-  console.log('cInput開始');
   //inStr就是輸入的字串，反正只要處理這一串就對了
   
-  let help_text="";
-  if (inStr.toLowerCase().match(/^hastur\s?說明$/)!=null) {
+  if (inStr.match(/\w/)==null) return undefined;//開頭不是純英數就直接省略了，雖然我不確定這樣能不能節省運算啦...
+  //如果開頭圍hastur的話，可能是說明文字之類
+  else if (inStr.toLowerCase().match(/^hastur/)!=null){
+      return hastur_help(inStr);
+  }
+  //如果開頭為cc則可能是CoC 7th骰
+  else if (inStr.toLowerCase().match(/^cc/)!=null){
+    return coc7th(inStr);
+  }
+  //如果開頭第一個字元為數字就可能是基本骰組
+  else if (inStr.toLowerCase().match(/^\d/)!=null) {
+    return dice_roller(inStr);
+  }
+  else {
+    return undefined;
+  }
+}
+
+//hastur說明文字
+function hastur_help(inStr){
+  let help_text="";//說明文字內容
+  if (inStr.toLowerCase().match(/^hastur\s?(說明$|help$)/)!=null) {
     help_text= help_text+"無以名狀的擲骰者 版本v1.0\n";
 	help_text= help_text+"\n";
 	help_text= help_text+"＜擲骰請直接輸入xdy＞\n";
@@ -151,8 +170,10 @@ function cInput(rplyToken, inStr) {
     return help_text;
     //help_text= help_text+"輸入文字\n";
   }
-  
-  
+}
+
+//所有CoC 7th的骰子（開頭為cc的）
+function coc7th(inStr){
   //以下為CoC 7th投骰（基本cc檢定包含獎勵骰，FAR那個全自動槍械骰請容我現在先放棄)
   if (inStr.toLowerCase().match(/^cc(\(-?[12]\))?<=\d{1,}/)!=null && inStr.toLowerCase().split(' ',1)[0].split('<=',2)[1] !=0 && inStr.toLowerCase().split(' ',1)[0].split('<=',2)[1].match(/\./)==null){
     let dice_100_a =[]; //丟骰最終值
@@ -189,7 +210,7 @@ function cInput(rplyToken, inStr) {
 	}
 	
 	//暫時輸入骰數
-	//dice_100_a=1;
+	//dice_100_a=96;
 
 	if (dice_100_a == 1){
 	  //大成功
@@ -252,8 +273,9 @@ function cInput(rplyToken, inStr) {
   //以下為CoC 7th投骰，成長骰的狀況，連成長的數字都幫你骰好
   if (inStr.toLowerCase().match(/cc>\d{1,}/)!=null){
   }
-  
-  
+
+}
+function dice_roller(inStr){
   //以下這個if是複數投骰
   if (inStr.toLowerCase().match(/\d{1,}d\d{1,}/g) != null && inStr.split(' ',1)[0].match(/\D/)==null && inStr.split(' ',2)[1].match(/\./)==null){
     let dice_mult='';
@@ -340,7 +362,8 @@ function cInput(rplyToken, inStr) {
   return undefined;
 }
 
-  //基本骰子的function(xdy這種，每顆骰子都獨立結果回傳陣列)
+
+  //基本骰子的function(xdy這種，每顆骰子都獨立結果回傳陣列)，我其實不知道為什麼我要把這獨立拉出來做，不過就這樣吧
 function basic_dice(bdice){
     let dice_group = [];
     for(let count = 1 ; count<=bdice.split("d",2)[0] ; count++){
