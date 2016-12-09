@@ -285,7 +285,7 @@ function dice_roller(inStr){
     let dice_sum =[];
 	let msg_long=false;
 	if (inStr.split(' ',1)[0] > 20) return ("複數丟骰上限為20次，請不要洗頻會被天譴哦（<ゝω・）");
-   if (inStr.toLowerCase().split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
+    if (inStr.toLowerCase().split(' ',1)[0].match(/(d1\D)|d1$/)!=null) return ("請不要輸入d1，沒有這種骰子存在，用常數不好嗎 (´；ω；｀)？");
   　if (inStr.toLowerCase().split(' ',2)[1].match(/d0/)!=null) return undefined;
 	
 	for(let count_roll=1;count_roll<=inStr.split(' ',1)[0];count_roll++){
@@ -294,6 +294,7 @@ function dice_roller(inStr){
       for(let count=1; count<=inStr.toLowerCase().split(' ',2)[1].match(/\d{1,}d\d{1,}/g).length;count++){
 	    dice_temp='';
 	    dice_temp=basic_dice(inStr.toLowerCase().split(' ',2)[1].match(/\d{1,}d\d{1,}/g)[count-1]);
+		if (dice_temp==undefined) return ('一次丟超過一千顆骰是不行的哦。\n什麼系統會一次需要丟一千顆骰呢(´・ω・`)'); //超過一千顆骰直接中斷
 	    dice_all[count-1] = '['+dice_temp+']';
 	
    	    dice_sum[count-1]=0;
@@ -337,6 +338,7 @@ function dice_roller(inStr){
 	let msg_long=false;
     for(let count=1; count<=inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g).length;count++){
 	  dice_temp=basic_dice(inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g)[count-1]);
+	  if (dice_temp==undefined) return ('一次丟超過一千顆骰是不行的哦。\n什麼系統會一次需要丟一千顆骰呢(´・ω・`)'); //超過一千顆骰直接中斷
 	  dice_all[count-1] = '['+dice_temp+']';
 	
    	  dice_sum[count-1]=0;
@@ -368,6 +370,7 @@ function dice_roller(inStr){
 function basic_dice(bdice){
     let dice_group = [];
     for(let count = 1 ; count<=bdice.split("d",2)[0] ; count++){
+	    if (bdice.split("d",2)[0]>1000) return undefined; //如果骰子大於一千顆回傳undefined
 	    dice_group[count-1] = Math.floor((Math.random()*bdice.split("d",2)[1])+1);
 	  }
     return dice_group;
