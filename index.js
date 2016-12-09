@@ -18,12 +18,10 @@ var options = {
 }
 app.set('port', (process.env.PORT || 5000));
 
-// views is directory for all template files
 //這段我不懂啦
 app.get('/', function(req, res) {
 //  res.send(parseInput(req.query.input));
   res.send('Hello?');
-//哈囉什麼？網頁顯示的東西嗎
 });
 
 //app.開頭的因為我都看不懂所以不要亂動，這段看起來是收訊息什麼的
@@ -58,7 +56,7 @@ app.post('/', jsonParser, function(req, res) {
   res.send('ok');
 });
 
-//port什麼？反正拿掉不會動
+//port...什麼？反正這段拿掉不會動
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
@@ -90,7 +88,7 @@ function replyMsgToLine(rplyToken, rplyVal) {
     console.log('Request error: ' + e.message);
   })
   request.end(rplyJson);
-  //以上這段我不懂，大概是回應訊息ㄅ
+  //以上這段我不懂，大概是回應訊息
 }
 
 /* 
@@ -105,7 +103,7 @@ function replyMsgToLine(rplyToken, rplyVal) {
 
 
 */
-//檢查輸入資料什麼的吧，要動應該就是主要是動這邊了，我要用死大學生寫法全都塞在一個function裡面
+//檢查第一手輸入字串的function
 function cInput(rplyToken, inStr) {
   //inStr就是輸入的字串，反正只要處理這一串就對了
   
