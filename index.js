@@ -295,6 +295,7 @@ function dice_roller(inStr){
 	    dice_temp='';
 	    dice_temp=basic_dice(inStr.toLowerCase().split(' ',2)[1].match(/\d{1,}d\d{1,}/g)[count-1]);
 		if (dice_temp==undefined) return ('一次丟超過一千顆骰是不行的哦。\n什麼系統會一次需要丟一千顆骰呢(´・ω・`)'); //超過一千顆骰直接中斷
+		if (dice_temp=='0d') return ('0d…是什麼(´・ω・`)，請不要丟不存在的骰子。'); //0d直接中斷
 	    dice_all[count-1] = '['+dice_temp+']';
 	
    	    dice_sum[count-1]=0;
@@ -339,6 +340,7 @@ function dice_roller(inStr){
     for(let count=1; count<=inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g).length;count++){
 	  dice_temp=basic_dice(inStr.toLowerCase().split(' ',1)[0].match(/\d{1,}d\d{1,}/g)[count-1]);
 	  if (dice_temp==undefined) return ('一次丟超過一千顆骰是不行的哦。\n什麼系統會一次需要丟一千顆骰呢(´・ω・`)'); //超過一千顆骰直接中斷
+	  if (dice_temp=='0d') return ('0d…是什麼(´・ω・`)，請不要丟不存在的骰子。'); //0d直接中斷
 	  dice_all[count-1] = '['+dice_temp+']';
 	
    	  dice_sum[count-1]=0;
@@ -368,9 +370,10 @@ function dice_roller(inStr){
 
   //基本骰子的function(xdy這種，每顆骰子都獨立結果回傳陣列)，我其實不知道為什麼我要把這獨立拉出來做，不過就這樣吧
 function basic_dice(bdice){
+	if (bdice.split("d",2)[0]>1000) return undefined; //如果骰子大於一千顆回傳undefined
+	if (bdice.split("d",2)[0]==0) return '0d'; //如果骰子顆數為0的話
     let dice_group = [];
     for(let count = 1 ; count<=bdice.split("d",2)[0] ; count++){
-	    if (bdice.split("d",2)[0]>1000) return undefined; //如果骰子大於一千顆回傳undefined
 	    dice_group[count-1] = Math.floor((Math.random()*bdice.split("d",2)[1])+1);
 	  }
     return dice_group;
