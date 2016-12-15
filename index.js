@@ -12,8 +12,8 @@ var options = {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    //二號機
-    'Authorization': 'Bearer Z7kv88wUNJ+PBMO+ZvAkaJg6Xsv0PzkUnicjhnCvNb6i218pLq9/AMAeJmrTlaPaodwVVwzPWTfCYy2RD8KTWcK0FMItKsj0UZXWHkRgzaWdKjSgJkb0RdHMRvm3e8vF1OmQMQJz7UFMoYo5gKeOjwdB04t89/1O/w1cDnyilFU='
+    //四號機
+    'Authorization': 'Bearer [LineAuthorization]'
   }
 }
 app.set('port', (process.env.PORT || 5000));
